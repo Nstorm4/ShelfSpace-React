@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from "@/context/AuthContext";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from 'lucide-react';
+import { Trash2, SortAsc } from 'lucide-react';
 
 type Book = {
   title: string;
@@ -82,9 +82,31 @@ export default function CurrentShelfView({ shelf }: { shelf: string }) {
     }
   };
 
+  const sortBooksByTitle = () => {
+    const sortedBooks = [...books].sort((a, b) => a.title.localeCompare(b.title));
+    setBooks(sortedBooks);
+  };
+
+  const sortBooksByAuthor = () => {
+    const sortedBooks = [...books].sort((a, b) => a.author.localeCompare(b.author));
+    setBooks(sortedBooks);
+  };
+
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">{shelf}</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">{shelf}</h2>
+        <div className="flex gap-2">
+          <Button onClick={sortBooksByTitle} className="sort-button">
+            <SortAsc size={14} />
+            Sort by Title
+          </Button>
+          <Button onClick={sortBooksByAuthor} className="sort-button">
+            <SortAsc size={14} />
+            Sort by Author
+          </Button>
+        </div>
+      </div>
       {books.length === 0 ? (
         <p>Start adding books to your shelf!</p>
       ) : (
