@@ -123,7 +123,6 @@ export default function CurrentShelfView({ shelf }: { shelf: string }) {
                 <Button 
                   onClick={() => removeBookFromShelf(book)}
                   className="remove-button"
-                  variant="destructive"
                 >
                   <Trash2 size={14} />
                   Remove
