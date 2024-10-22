@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { SidebarLeft } from "@/components/sidebar-left"
 import { SidebarRight } from "@/components/sidebar-right"
 import SearchView from "@/components/views/SearchView"
@@ -18,6 +18,14 @@ import { Button } from "@/components/ui/button"
 export default function Page() {
   const [currentView, setCurrentView] = useState("home")
   const [currentShelf, setCurrentShelf] = useState<string | null>(null)
+  const [username, setUsername] = useState("")
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username")
+    if (storedUsername) {
+      setUsername(storedUsername)
+    }
+  }, [])
 
   const renderContent = () => {
     if (currentShelf) {
@@ -27,7 +35,9 @@ export default function Page() {
       case "home":
         return (
           <div className="max-w-4xl mx-auto p-8">
-            <h1 className="text-4xl font-bold mb-6 text-center">Welcome to ShelfSpace</h1>
+            <h1 className="text-4xl font-bold mb-6 text-center">
+              Welcome, {username}
+            </h1>
             <p className="text-xl mb-8 text-center text-foreground-muted">
               Your personal library, reimagined.
             </p>
