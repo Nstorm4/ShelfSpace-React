@@ -3,6 +3,8 @@ import { useAuth } from "@/context/AuthContext";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trash2, SortAsc } from 'lucide-react';
+import { useApi } from '@/utils/api';
+
 
 type Book = {
   title: string;
@@ -16,6 +18,7 @@ type Shelf = {
 };
 
 export default function CurrentShelfView({ shelf }: { shelf: string }) {
+  const { fetchWithAuth } = useApi();
   const [books, setBooks] = useState<Book[]>([]);
   const { token } = useAuth();
 
