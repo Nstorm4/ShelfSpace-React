@@ -1,9 +1,12 @@
+---
 applications:
-- name: ShelfSpace
-  instances: 1
-  host: ShelfSpace{random-word}
-  path: .
-  random-route: true
-  memory: 1G
-  buildpacks:
+- name: ShelfSpace-React
+instances: 1
+host: ShelfSpace-React{random-word}
+path: ./my-nextjs-app
+random-route: true
+memory: 1G
+disk_quota: 1G
+buildpacks:
     - nodejs_buildpack
+command: npm run start

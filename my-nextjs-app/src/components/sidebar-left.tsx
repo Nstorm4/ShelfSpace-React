@@ -211,7 +211,7 @@ export function SidebarLeft({
                   value={newShelfName}
                   onChange={(e) => setNewShelfName(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="New shelf name"
+                  placeholder="Submit with Enter"
                   className="add-shelf-input"
                 />
                 <Button onClick={toggleAddShelf} className="cancel-button">

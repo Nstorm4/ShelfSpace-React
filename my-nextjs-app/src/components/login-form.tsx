@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useAuth } from "@/context/AuthContext"
+import { useApi } from '@/utils/api';
 
 import { Button } from "@/components/ui/button"
 import {
@@ -16,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export function LoginForm() {
+  const { fetchWithAuth } = useApi();
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")

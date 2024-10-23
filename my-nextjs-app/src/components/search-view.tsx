@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { useAuth } from "@/context/AuthContext"
 import { useState } from 'react'
+import { useApi } from '@/utils/api';
 
 // Aktualisierter Typ für die Buchobjekte
 type Book = {
@@ -61,6 +62,7 @@ const AddToShelfDropdown: React.FC<AddToShelfDropdownProps> = ({ book, shelves, 
 };
 
 export function SearchView() {
+  const { fetchWithAuth } = useApi();
   const [query, setQuery] = React.useState("")
   const [results, setResults] = React.useState<Book[]>([])
   const [showResults, setShowResults] = React.useState(false)
