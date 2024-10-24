@@ -16,6 +16,7 @@ import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavWorkspaces } from "@/components/nav-workspaces"
 import { TeamSwitcher } from "@/components/team-switcher"
+import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
   SidebarContent,
@@ -37,7 +38,6 @@ type ShelfItem = {
   emoji: string;
 };
 
-// This is sample data.
 const data = {
   teams: [
     {
@@ -76,6 +76,7 @@ export function SidebarLeft({
   const { token } = useAuth();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [showAddShelf, setShowAddShelf] = useState(false);
+  const [username, setUsername] = React.useState("")
 
   useEffect(() => {
     // Check for saved theme preference or system preference
@@ -95,6 +96,19 @@ export function SidebarLeft({
     // Save theme preference
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
+
+  const userData = {
+    name: username || "Account",
+    email: "",
+    avatar: "",
+  }
+
+  React.useEffect(() => {
+    const storedUsername = localStorage.getItem("username")
+    if (storedUsername) {
+      setUsername(storedUsername)
+    }
+  }, [])
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -241,6 +255,7 @@ export function SidebarLeft({
           {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
           <span className="sr-only">Toggle theme</span>
         </Button>
+        <NavUser user={userData} />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

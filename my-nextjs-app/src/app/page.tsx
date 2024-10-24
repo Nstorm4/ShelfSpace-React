@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { SidebarLeft } from "@/components/sidebar-left"
-import { SidebarRight } from "@/components/sidebar-right"
+// import { SidebarRight } from "@/components/sidebar-right"
 import SearchView from "@/components/views/SearchView"
 import CurrentShelfView from "@/components/views/CurrentShelfView"
 import {
@@ -100,7 +100,6 @@ export default function Page() {
             {renderContent()}
           </div>
         </SidebarInset>
-        <SidebarRight />
       </SidebarProvider>
     </ProtectedRoute>
   )

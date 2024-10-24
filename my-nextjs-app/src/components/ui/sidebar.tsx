@@ -281,7 +281,7 @@ const SidebarTrigger = React.forwardRef<
       <PanelLeft className="size-4" />
       <span className="sr-only">Toggle Sidebar</span>
       <span className="ml-2 hidden md:inline">
-        {state === "expanded" ? "Close sidebar" : "Open sidebar"}
+        {state === "expanded" ? "Close sidebar ⌘b" : "Open sidebar ⌘b"}
       </span>
     </Button>
   )
