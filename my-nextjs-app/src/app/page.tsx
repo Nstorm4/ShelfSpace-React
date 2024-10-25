@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/sidebar"
 import ProtectedRoute from "@/components/ProtectedRoute"
 import FeatureCard from "@/components/feature-card"
-import { Search, Library, BookOpen, Users, Settings, Github } from "lucide-react"
+import { Search, Library, BookOpen, Users, Settings, Github, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import ExploreView from "@/components/views/ExploreView";
 
@@ -54,14 +54,14 @@ export default function Page() {
                 description="Create custom shelves to categorize and manage your book collection."
               />
               <FeatureCard
-                icon={<BookOpen className="w-8 h-8 text-primary" />}
-                title="Track Reading"
-                description="Use the calendar to track your reading progress."
+                icon={<Sparkles className="w-8 h-8 text-primary" />}
+                title="Explore"
+                description="Explore new Books based on your shelves"
               />
               <FeatureCard
                 icon={<Github className="w-8 h-8 text-primary" />}
-                title="Visit our GitHub"
-                description="https://github.com/Nstorm4/ShelfSpace/"
+                title="Visit the Repository"
+                description="https://github.com/Nstorm4"
               />
             </div>
             

@@ -42,7 +42,7 @@ export function ExploreView() {
 
   return (
     <>
-      <h1 className="text-4xl font-bold mb-6 text-center">Recommended Books from</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Recommended Books:</h1>
       <div className="book-grid">
         {recommendedBooks.map((book) => (
           <Card key={book.id} className="book-item">
