@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { useAuth } from "@/context/AuthContext"
 import { useState } from 'react'
 import { useApi } from '@/utils/api';
+import { ToggleLeft, ToggleRight, Book, User } from 'lucide-react'; // Import Lucide icons
 
 // Aktualisierter Typ für die Buchobjekte
 type Book = {
@@ -63,11 +64,12 @@ const AddToShelfDropdown: React.FC<AddToShelfDropdownProps> = ({ book, shelves, 
 
 export function SearchView() {
   const { fetchWithAuth } = useApi();
-  const [query, setQuery] = React.useState("")
-  const [results, setResults] = React.useState<Book[]>([])
-  const [showResults, setShowResults] = React.useState(false)
-  const { token } = useAuth()
-  const [shelves, setShelves] = React.useState<string[]>([])
+  const [query, setQuery] = React.useState("");
+  const [results, setResults] = React.useState<Book[]>([]);
+  const [showResults, setShowResults] = React.useState(false);
+  const { token } = useAuth();
+  const [shelves, setShelves] = React.useState<string[]>([]);
+  const [searchMode, setSearchMode] = useState<'title' | 'author'>('title'); // New state for search mode
 
   React.useEffect(() => {
     fetchShelves()
@@ -92,11 +94,30 @@ export function SearchView() {
   };
 
   const handleSearch = async () => {
-    const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/books?title=${encodeURIComponent(query)}`)
-    const data = await response.json()
-    setResults(data.items || [])
-    setShowResults(true)
-  }
+    if (searchMode === 'title') {
+      // Call the original title search
+      await handleSearchTitle();
+    } else {
+      // Call the author search
+      await handleSearchAuthor();
+    }
+  };
+
+  // Updated handleSearch for title
+  const handleSearchTitle = async () => {
+    const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/books?title=${encodeURIComponent(query)}`);
+    const data = await response.json();
+    setResults(data.items || []);
+    setShowResults(true);
+  };
+
+  // Updated handleSearch for author
+  const handleSearchAuthor = async () => {
+    const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/books2?author=${encodeURIComponent(query)}`);
+    const data = await response.json();
+    setResults(data.items || []);
+    setShowResults(true);
+  };
 
   const handleBack = () => {
     setShowResults(false)
@@ -150,16 +171,31 @@ export function SearchView() {
 
   return (
     <div className="p-4">
-      {!showResults ? (
-        <div className="flex gap-2">
-          <Input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for books..."
-          />
-          <Button onClick={handleSearch}>Search</Button>
-        </div>
-      ) : (
+      <div className="flex gap-2 mb-4">
+        <button
+          className={`sort-button ${searchMode === 'title' ? 'active' : ''}`} // Style for active state
+          onClick={() => setSearchMode('title')}
+          style={{ color: searchMode === 'title' ? 'red' : 'inherit' }} // Highlight selected button
+        >
+          <Book className="mr-2" /> Title
+        </button>
+        <button
+          className={`sort-button ${searchMode === 'author' ? 'active' : ''}`} // Style for active state
+          onClick={() => setSearchMode('author')}
+          style={{ color: searchMode === 'author' ? 'red' : 'inherit' }} // Highlight selected button
+        >
+          <User className="mr-2" /> Author
+        </button>
+      </div>
+      <div className="flex gap-2">
+        <Input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder={`Search by ${searchMode === 'title' ? 'title...' : 'author...'}`}
+        />
+        <Button onClick={handleSearch}>Search</Button>
+      </div>
+      {showResults && (
         <div>
           <Button onClick={handleBack} className="mb-4">Back</Button>
           <div className="book-grid">
