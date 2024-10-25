@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { SidebarLeft } from "@/components/sidebar-left"
-// import { SidebarRight } from "@/components/sidebar-right"
 import SearchView from "@/components/views/SearchView"
 import CurrentShelfView from "@/components/views/CurrentShelfView"
 import {
@@ -14,6 +13,7 @@ import ProtectedRoute from "@/components/ProtectedRoute"
 import FeatureCard from "@/components/feature-card"
 import { Search, Library, BookOpen, Users, Settings, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import ExploreView from "@/components/views/ExploreView";
 
 export default function Page() {
   const [currentView, setCurrentView] = useState("home")
@@ -77,10 +77,8 @@ export default function Page() {
         );
       case "search":
         return <SearchView />;
-      case "trash":
-        return <h2>Trash</h2>;
-      case "settings":
-        return <h2>Settings</h2>;
+      case "explore":
+        return <ExploreView />;
       default:
         return null;
     }

@@ -9,6 +9,7 @@ import {
   Command,
   Library,
   Plus,
+  Sparkles,
 } from "lucide-react"
 
 import { NavFavorites } from "@/components/nav-favorites"
@@ -33,7 +34,6 @@ import { useSidebar } from "@/components/ui/sidebar"
 // Define a type for the shelf items
 type ShelfItem = {
   name: string;
-  onClick: () => void;
   url: string;
   emoji: string;
 };
@@ -43,21 +43,24 @@ const data = {
     {
       name: "ShelfSpace",
       logo: Command,
-      plan: "Enterprise",
+      plan: "",
     },
   ],
   navMain: [
     {
       title: "Home",
-      onClick: () => {},
       url: "#",
       icon: Home,
     },
     {
       title: "Search",
-      onClick: () => {},
       url: "#",
       icon: Search,
+    },
+    {
+      title: "Explore",
+      url: "#",
+      icon: Sparkles,
     },
   ],
   navSecondary: [
