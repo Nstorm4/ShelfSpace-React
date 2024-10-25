@@ -175,16 +175,16 @@ export function SearchView() {
         <button
           className={`sort-button ${searchMode === 'title' ? 'active' : ''}`} // Style for active state
           onClick={() => setSearchMode('title')}
-          style={{ color: searchMode === 'title' ? 'red' : 'inherit' }} // Highlight selected button
+          style={{ color: searchMode === 'title' ? 'red' : 'inherit', fontSize: '0.875rem' }} // Highlight selected button and smaller font size
         >
-          <Book className="mr-2" /> Title
+          <Book className="mr-3" /> Title
         </button>
         <button
           className={`sort-button ${searchMode === 'author' ? 'active' : ''}`} // Style for active state
           onClick={() => setSearchMode('author')}
-          style={{ color: searchMode === 'author' ? 'red' : 'inherit' }} // Highlight selected button
+          style={{ color: searchMode === 'author' ? 'red' : 'inherit', fontSize: '0.875rem' }} // Highlight selected button and smaller font size
         >
-          <User className="mr-2" /> Author
+          <User className="mr-3" /> Author
         </button>
       </div>
       <div className="flex gap-2">
@@ -197,7 +197,7 @@ export function SearchView() {
       </div>
       {showResults && (
         <div>
-          <Button onClick={handleBack} className="mb-4">Back</Button>
+          <Button onClick={handleBack} className="mb-4 mt-2">Back</Button>
           <div className="book-grid">
             {results
               .filter((book: Book) => book.volumeInfo.imageLinks?.thumbnail)
