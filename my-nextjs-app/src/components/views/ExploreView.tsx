@@ -1,3 +1,5 @@
+import { ExploreView as OriginalExploreView }  from "@/components/explore-view";
+
 export default function ExploreView() {
   return (
     <>
@@ -7,6 +9,7 @@ export default function ExploreView() {
           Discover your next favorite book.
         </p>
       </div>
+      < OriginalExploreView />
       <div>
       </div>
     </>
