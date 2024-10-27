@@ -70,7 +70,7 @@ export default function Page() {
               <ol className="list-decimal list-inside space-y-2">
                 <li>Use the search feature to find books you love</li>
                 <li>Create custom shelves to organize your collection</li>
-                <li>Calendar feature coming soon!</li>
+                <li>Start exploring new books based on your interests</li>
               </ol>
             </div>
           </div>
