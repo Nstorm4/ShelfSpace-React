@@ -103,7 +103,6 @@ export function SearchView() {
     }
   };
 
-  // Updated handleSearch for title
   const handleSearchTitle = async () => {
     const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/books?title=${encodeURIComponent(query)}`);
     const data = await response.json();
@@ -111,7 +110,6 @@ export function SearchView() {
     setShowResults(true);
   };
 
-  // Updated handleSearch for author
   const handleSearchAuthor = async () => {
     const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/books2?author=${encodeURIComponent(query)}`);
     const data = await response.json();

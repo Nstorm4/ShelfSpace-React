@@ -28,7 +28,7 @@ export function LoginForm() {
 
     try {
       const response = await fetch(
-        "https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/users/login",
+        "https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/user/logIn",
         {
           method: "POST",
           headers: {

@@ -31,7 +31,7 @@ export function SignUpForm() {
 
     try {
       const response = await fetch(
-        "https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/users/register",
+        "https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/user/signIn",
         {
           method: "POST",
           headers: {
@@ -51,10 +51,7 @@ export function SignUpForm() {
       const data = await response.text()
       console.log("Registration successful")
       setSuccessMessage(data)
-      
-      // Optionally, you can automatically log in the user after successful registration
-      // by calling the login function from useAuth
-      // login(data) // Uncomment this if you want to auto-login after registration
+    
     } catch (error) {
       console.error("Error:", error)
       setErrorMessage("Registration failed: " + (error as Error).message)
