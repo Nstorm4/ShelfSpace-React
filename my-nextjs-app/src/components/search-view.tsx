@@ -11,14 +11,9 @@ import { ToggleLeft, ToggleRight, Book, User } from 'lucide-react'; // Import Lu
 
 // Aktualisierter Typ für die Buchobjekte
 type Book = {
-  id: string;
-  volumeInfo: {
-    title: string;
-    authors: string[];
-    imageLinks?: {
-      thumbnail: string;
-    };
-  };
+  title: string;
+  author: string;
+  coverUrl: string;
 };
 
 type AddToShelfDropdownProps = {
@@ -79,7 +74,7 @@ export function SearchView() {
     if (!token) return;
 
     try {
-      const response = await fetch('https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelves/userShelves', {
+      const response = await fetch('https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelf', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -104,16 +99,40 @@ export function SearchView() {
   };
 
   const handleSearchTitle = async () => {
-    const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/books?title=${encodeURIComponent(query)}`);
+    const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/book/searchByTitle?title=${encodeURIComponent(query)}`);
     const data = await response.json();
-    setResults(data.items || []);
+    
+    // Map the data to the expected Book format
+    if (Array.isArray(data)) {
+        const formattedResults = data.map((item: any) => ({
+            title: item.title,
+            author: item.author,
+            coverUrl: item.coverUrl,
+        }));
+        setResults(formattedResults);
+    } else {
+        console.error('Unexpected data format:', data);
+        setResults([]); // Clear results if the format is unexpected
+    }
     setShowResults(true);
   };
 
   const handleSearchAuthor = async () => {
-    const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/books2?author=${encodeURIComponent(query)}`);
+    const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/book/searchByAuthor?author=${encodeURIComponent(query)}`);
     const data = await response.json();
-    setResults(data.items || []);
+    
+    // Map the data to the expected Book format
+    if (Array.isArray(data)) {
+        const formattedResults = data.map((item: any) => ({
+            title: item.title,
+            author: item.author,
+            coverUrl: item.coverUrl,
+        }));
+        setResults(formattedResults);
+    } else {
+        console.error('Unexpected data format:', data);
+        setResults([]); // Clear results if the format is unexpected
+    }
     setShowResults(true);
   };
 
@@ -128,14 +147,14 @@ export function SearchView() {
     const bookData = {
       shelfName,
       book: {
-        title: book.volumeInfo.title,
-        author: book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Unknown",
-        coverUrl: book.volumeInfo.imageLinks?.thumbnail || ""
+        title: book.title,
+        author: book.author,
+        coverUrl: book.coverUrl
       }
     };
 
     console.log("Request details:", {
-      url: 'https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelves/addBook',
+      url: 'https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/book',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -145,7 +164,7 @@ export function SearchView() {
     });
 
     try {
-      const response = await fetch('https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelves/addBook', {
+      const response = await fetch('https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/book', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -193,28 +212,26 @@ export function SearchView() {
         />
         <Button onClick={handleSearch}>Search</Button>
       </div>
-      {showResults && (
+      {showResults && results.length > 0 && ( // Ensure results exist before rendering
         <div>
           <Button onClick={handleBack} className="mb-4 mt-2">Back</Button>
           <div className="book-grid">
-            {results
-              .filter((book: Book) => book.volumeInfo.imageLinks?.thumbnail)
-              .map((book: Book) => (
-                <Card key={book.id} className="book-item">
-                  <img 
-                    src={book.volumeInfo.imageLinks?.thumbnail} 
-                    alt={book.volumeInfo.title} 
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="book-item-content">
-                    <div className="book-item-title">{book.volumeInfo.title}</div>
-                    <div className="book-item-author">
-                      {book.volumeInfo.authors ? book.volumeInfo.authors.join(", ") : "Author: Unknown"}
-                    </div>
-                    <AddToShelfDropdown book={book} shelves={shelves} addToShelf={addToShelf} />
+            {results.map((book: Book) => (
+              <Card key={book.title} className="book-item">
+                <img 
+                  src={book.coverUrl} 
+                  alt={book.title} 
+                  className="w-full h-48 object-cover"
+                />
+                <div className="book-item-content">
+                  <div className="book-item-title">{book.title}</div>
+                  <div className="book-item-author">
+                    {book.author}
                   </div>
-                </Card>
-              ))}
+                  <AddToShelfDropdown book={book} shelves={shelves} addToShelf={addToShelf} />
+                </div>
+              </Card>
+            ))}
           </div>
         </div>
       )}

@@ -32,6 +32,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     router.push("/");
   };
 
+  // TODO: eigenen API call definieren.
+  // /api/user/
   const logout = () => {
     localStorage.removeItem("authToken");
     setIsAuthenticated(false);

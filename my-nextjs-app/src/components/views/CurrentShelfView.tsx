@@ -30,7 +30,8 @@ export default function CurrentShelfView({ shelf }: { shelf: string }) {
     if (!token || !shelf) return;
 
     try {
-      const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelves/userShelves`, {
+      const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelf`, {
+        method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -55,7 +56,7 @@ export default function CurrentShelfView({ shelf }: { shelf: string }) {
     if (!token || !shelf) return;
 
     try {
-      const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelves/deleteBook`, {
+      const response = await fetch(`https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/book`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

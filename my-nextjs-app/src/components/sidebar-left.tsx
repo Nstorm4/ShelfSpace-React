@@ -123,7 +123,8 @@ export function SidebarLeft({
     if (!token) return;
 
     try {
-      const response = await fetch('https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelves/userShelves', {
+      const response = await fetch('https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelf', {
+        method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -146,7 +147,7 @@ export function SidebarLeft({
     if (newShelfName.trim() === "" || !token) return;
 
     try {
-      const response = await fetch('https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelves/newShelf', {
+      const response = await fetch('https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelf', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -175,7 +176,7 @@ export function SidebarLeft({
     if (!token) return;
 
     try {
-      const response = await fetch('https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelves/deleteShelf', {
+      const response = await fetch('https://shelfspacebackend-happy-gecko-kb.apps.01.cf.eu01.stackit.cloud/api/shelf', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
